@@ -1,0 +1,25 @@
+{
+	"schemaVersion": 1,
+	"id": "${id}",
+	"version": "${version}",
+	"name": "${name}",
+	"description": "Spawners break after spawning a set number of mobs, so a spawner farm doesn't run forever. Fabric port of Ageing Spawners by Mrbysco.",
+	"authors": ["traelmyx"],
+	"contributors": ["Mrbysco (original mod)"],
+	"contact": {
+		"sources": "https://github.com/traelmyx/ageing-spawners-fabric",
+		"issues": "https://github.com/traelmyx/ageing-spawners-fabric/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/ageingspawners/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["io.github.traelmyx.ageingspawners.fabric.AgeingSpawnersFabric"]
+	},
+	"mixins": ["ageingspawners.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "${mc_dep}",
+		"java": ">=${java}"
+	}
+}
