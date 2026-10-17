@@ -10,7 +10,7 @@ displayName = "${name}"
 authors = "traelmyx (port), Mrbysco (original)"
 ${logo_key} = "assets/ageingspawners/icon.png"
 displayTest = "IGNORE_ALL_VERSION"
-description = '''When the server watchdog kills a frozen server, its crash report now shows every thread's whole stack instead of the first 8 lines. Port of FullStack Watchdog by TelepathicGrunt.'''
+description = '''Spawners break after spawning a set number of mobs, so a spawner farm doesn't run forever. Fabric port of Ageing Spawners by Mrbysco.'''
 
 [[mixins]]
 config = "ageingspawners.mixins.json"
