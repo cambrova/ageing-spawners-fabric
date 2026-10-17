@@ -71,15 +71,20 @@ public final class SpawnerTests {
 		level.setBlockEntity(BlockEntity.loadStatic(pos, level.getBlockState(pos), tag, level.registryAccess()));
 	}
 
+	/** Just this test's 8x8x8 area; tests run side by side. */
+	private static AABB area(GameTestHelper helper) {
+		return new AABB(helper.absoluteVec(Vec3.ZERO), helper.absoluteVec(new Vec3(8, 8, 8)));
+	}
+
 	private static int count(GameTestHelper helper, String id) {
 		int n = 0;
-		for (Entity e : helper.getLevel().getEntities((Entity) null, new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(12), e -> true))
+		for (Entity e : helper.getLevel().getEntities((Entity) null, area(helper), e -> true))
 			if (BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath().equals(id)) n++;
 		return n;
 	}
 
 	private static void cleanup(GameTestHelper helper, ServerPlayer player, String id) {
-		for (Entity e : helper.getLevel().getEntities((Entity) null, new AABB(helper.absolutePos(BlockPos.ZERO)).inflate(12), e -> true))
+		for (Entity e : helper.getLevel().getEntities((Entity) null, area(helper), e -> true))
 			if (BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath().equals(id)) e.discard();
 		helper.getLevel().getServer().getPlayerList().remove(player);
 	}
@@ -123,6 +128,7 @@ public final class SpawnerTests {
 		CompoundTag tag = spawner.saveWithFullMetadata(level.registryAccess());
 		var reloaded = (SpawnerBlockEntity) BlockEntity.loadStatic(pos, level.getBlockState(pos), tag, level.registryAccess());
 		var age = (SpawnerAge) reloaded.getSpawner();
+		level.removeBlock(pos, false);
 		helper.assertTrue(age.ageingspawners$spawned() == 2 && age.ageingspawners$playerPlaced(), "after reload: " + age.ageingspawners$spawned() + " spawned, player placed " + age.ageingspawners$playerPlaced());
 		helper.succeed();
 	}
